@@ -20,8 +20,17 @@ RUN \
     sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/novnc_proxy
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 EXPOSE 8080
 
+RUN \
+    # Install xterm
+    apk add xterm && \
+    # Append xterm entry to supervisord.conf
+    cd /etc/supervisor/conf.d && \
+    echo '[program:xterm]' >> supervisord.conf && \
+    echo 'command=xterm' >> supervisord.conf && \
+    echo 'autorestart=true' >> supervisord.conf
 # Setup environment variables
 ENV HOME=/root \
     DEBIAN_FRONTEND=noninteractive \
