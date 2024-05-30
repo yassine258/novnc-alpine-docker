@@ -17,7 +17,7 @@ RUN \
     rm -rf /root/noVNC/.git && \
     rm -rf /root/noVNC/utils/websockify/.git && \
     apk del git && \
-    sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/launch.sh
+    sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/novnc_proxy
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 EXPOSE 8080
